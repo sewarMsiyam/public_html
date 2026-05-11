@@ -1,0 +1,217 @@
+
+html, body {
+  font-size: 1rem;
+  background: url('slider-2.jpg') no-repeat fixed  ;
+  background-size: cover;
+  overflow: auto;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  height:100%;
+  
+  
+}
+
+
+svg {
+  display: inline;
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+}
+
+.svg-icon {
+  cursor: pointer;
+}
+.svg-icon path {
+  stroke: rgba(255, 255, 255, 0.9);
+  fill: none;
+  stroke-width: 1;
+}
+
+input, button {
+  outline: none;
+  border: none;
+}
+
+
+.demo {
+	width:40%;
+	margin:auto;
+	margin-top:80px;
+	position: relative;
+  background: linear-gradient(to bottom, rgba(146, 135, 187, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+  transform: scale(1);
+ 
+ 
+}
+
+.admin_cp{
+	font-size:1.8rem;
+	color:#fff;
+	margin:auto;
+	text-align:center;
+	padding-top:50px;
+	text-shadow:1px 1px 1px #000;
+}
+
+
+.login__form {
+ text-align: center;
+  width: 90%;
+  margin:auto;
+  padding: 1.5rem 1.5rem;
+}
+.login__row {
+  height: 4rem;
+  padding-top: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+}
+.login__icon {
+  float:left;
+ 
+}
+.login__icon.name path {
+  stroke-dasharray: 73.50196075439453;
+  stroke-dashoffset: 73.50196075439453;
+  -webkit-animation: animatePath 2s 0.5s forwards;
+          animation: animatePath 2s 0.5s forwards;
+}
+.login__icon.pass path {
+  stroke-dasharray: 92.10662841796875;
+  stroke-dashoffset: 92.10662841796875;
+  -webkit-animation: animatePath 2s 0.5s forwards;
+          animation: animatePath 2s 0.5s forwards;
+}
+.login__input {
+  display: inline;
+  width: auto;
+   width: calc(100% - 60px);
+  height: 40px;
+  font-size: 1.2rem;
+  background: transparent;
+  color: #fff;
+}
+::placeholder{
+	color:#adadad
+}
+.login__submit {
+  position: relative;
+  width: 90%;
+  height: 3rem;
+  margin: 1rem ;
+  color: rgba(255, 255, 255, 0.8);
+  background: #FF3366;
+  font-size: 1.3rem;
+  border-radius: 3rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+}
+.forget{
+	text-align:left;
+}
+.forget a{
+	color:#fff;
+}
+@media (min-width: 1040px)  {
+    	.demo {
+	width:30%;
+	margin:auto;
+		margin-top:100px;
+
+	}
+}
+@media (min-width: 768px) and (max-width: 1040px)  {
+    .demo {
+	width:40%;
+	margin:auto;
+	margin-top:50px;
+	}
+	
+}
+
+@media (max-width: 768px) {
+    svg {
+    display: inline;
+    width: 35px;
+    height: 35px;
+    overflow: visible;
+}
+.login__row {
+    height: 3.3rem;
+    padding-top: 0rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  
+}
+
+	.demo {
+	width:95%;
+	margin:auto;
+	margin-top:20px;
+	}
+
+	.login__submit{
+		    font-size: 1rem;
+			height: 2rem;
+			 margin: 5px 0px 0px 0px;
+			 padding:10px 0px;
+	}
+
+.admin_cp {
+    font-size: 1.1rem;
+    color: #fff;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.forget {
+    text-align: left;
+	margin-top:15px;
+	font-size:0.9rem;
+}
+
+.login__input {
+    height: 35px;
+ 
+}
+
+
+}
+
+
+@-webkit-keyframes animRipple {
+  to {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+@keyframes animRipple {
+  to {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes animatePath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes animatePath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

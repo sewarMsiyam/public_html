@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /cp/
+Disallow: /admincp/
+
+Sitemap: https://www.buyformula.net/sitemap.xml

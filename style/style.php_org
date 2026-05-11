@@ -1,0 +1,391 @@
+<?php
+
+
+function whois_online() {
+  global $intro;
+  $ip = $_SERVER['REMOTE_ADDR'];
+  #if (is_logged_in($user)) {
+  #  $uinfo = CookieUser($user);
+  #  $username = $uinfo['username'];
+  #  $guest = 0;
+  #} else {
+    $username = $ip;
+    $guest = 1;
+  #}
+  $past = time()-3600;
+
+  $intro->db->query_fast("DELETE FROM ".PREFIX."_stats_online WHERE time < '$past'");
+
+  $result =  $intro->db->query_fast("SELECT time FROM ".PREFIX."_stats_online WHERE username='".addslashes($username)."'");
+  $ctime = time();
+  if (!empty($username)) {
+    $username = substr($username, 0,25);
+    $row = $intro->db->fetch_assoc($result);
+    if ($row) {
+      $intro->db->query_fast("UPDATE ".PREFIX."_stats_online SET username='".addslashes($username)."', time='$ctime', ip='$ip', guest='$guest' WHERE username='".addslashes($username)."'");
+    } else {
+      $intro->db->query_fast("INSERT INTO ".PREFIX."_stats_online (username, time, ip, guest) VALUES ('".addslashes($username)."', '$ctime', '$ip', '$guest')");
+      //$db->sql_query("UPDATE ".PREFIX."_stats_counter SET count=count+1 WHERE (type='visits') ");
+    }
+  }
+  
+}
+whois_online();
+
+function pHeader( $header_data = array() ){
+	global $home,$intro,$adv1,$CONF;
+	$home = $intro->home;
+	$lang=$intro->maa->lang;
+	$moved_news = $url =$classonline= $links_lang=$media =$accountlink=$marq= "";
+	$arts=$culture=$acts='';
+	
+	$seo_title = $seo_link = $seo_image = $slide = $main_news_js = $site_bg = $date = $header_inside = "";
+	$navigation = "";
+	
+	if(isset($header_data['nav']) && $header_data['nav'] != ""){
+		$navigation = $header_data['nav'];
+	}
+	
+	$lang_en = $intro->base_url ."en/" . $intro->uri->app ."/" . $intro->uri->action ."/" . $intro->uri->id;
+	$lang_ar = $intro->base_url ."ar/" . $intro->uri->app ."/" . $intro->uri->action ."/" . $intro->uri->id;
+	
+	$seo_title = (isset($header_data['seo_title']) !='' ? $header_data['seo_title'] : $intro->option['site_name'] ) ;
+	$seo_link =  (isset($header_data['seo_link']) !='' ? $header_data['seo_link'] : $intro->option['site_url'] ) ;
+	$seo_image = (isset($header_data['seo_image']) !='' ? $header_data['seo_image'] : $intro->option['site_url']."{$intro->base_url}style/img/logo.png" ) ;
+	$seo_desc = (isset($header_data['seo_desc']) !='' ? $header_data['seo_desc'] : $intro->option['site_desc'] ) ;
+	//get page title for seo
+
+	$page_title=$intro->option['site_name'];
+	if(isset($header_data['seo_title']) && $header_data['seo_title'] != ''){
+		$page_title=$page_title ." | ".$header_data['seo_title'];
+	}
+	$url = $intro->base_url . "index.php";
+	
+	$intro->option['site_keywords']=str_replace("،",",", $intro->option['site_keywords']);
+	#echo meta
+	$stylecss = $bootstrap = '';
+	if($lang=='ar'){
+		$stylecss = "<link rel=\"stylesheet\" href=\"{$intro->base_url}style/css/rtl.css\">";
+		$langchanged="<span class=\"current open_\"><img src=\"{$intro->base_url}style/images/flag_g.jpg\" alt=\"\">Arabic</span>";
+		$dirctionmarqee="right";	
+		$classonline="style=\"float:left;margin:10px;\"";			
+		$class_lnag="style=\"margin-right:110px;\"";			
+	}else{
+		$stylecss = "";
+		$class_lnag="style=\"margin-left:110px;\"";		
+		$dirctionmarqee="left";		
+		$langchanged="<span class=\"current open_\"><img src=\"{$intro->base_url}style/images/flag_en.jpg\" alt=\"\">English</span>";
+	}
+
+
+
+	eval("\$meta = \" " . $intro->style['meta'] . "\";");
+	echo stripslashes($meta);
+	
+
+
+	
+	
+	if ($intro->auth->auth_user()==true)
+		{
+			$accountlink="	<li><a href=\"{$intro->uri_links('downloads','index',0,'')}\"><font color=#CC0000> {$intro->lang['downlods']}</font></a></li>
+				<li><a href=\"{$intro->uri_links('account','index',0,'')}\"><font color=#0585BC>{$intro->lang['myaccount']}</font></a></li>
+					<li><a href=\"{$intro->uri_links('login','Logout')}\"  ><font color=#0585BC>{$intro->lang['logout']} </font></a>  </li>
+			";
+		$sess_user = $intro->auth->sess_user();
+		$welcom="<div class='welcome_account' $class_lnag>{$intro->lang['welcome']} : <span>$sess_user[fullname] </span></div>";
+									
+			
+		}else{
+			
+			$accountlink.="	<li><a href=\"{$intro->uri_links('login','index',0,'')}\" >{$intro->lang['login']} </a></li>
+
+						<li><a href=\"{$intro->uri_links('register','index',0,'')}\" >{$intro->lang['register']} </a></li>";
+		$welcom='';
+		}
+	
+	
+	$cart_header=minicart();
+	
+	$online_sql = $intro->db->query("SELECT * FROM ".PREFIX."_stats_online order by time asc");
+	$whoon=$intro->db->returned_rows;
+	
+	
+	/***/
+	$sql2 = $intro->db->query("SELECT * FROM ".PREFIX."_marquee  order by w asc ");
+	if($intro->db->returned_rows > 0 ){
+		$marq="<div class='marquee' dir=ltr  style=\"background:#{$intro->option['mqrquee_color']};\"  data-direction= '$dirctionmarqee'>";
+		while($row2 =  $intro->db->fetch_assoc($sql2)){
+			$mtitle=$row2['mtitle_'.$lang];
+			$url=$row2['url_'.$lang];
+			$color=$row2['color'];
+		$marq.="<a href='$url'><font color='#$color'> $mtitle </font> </a>  <img src='{$intro->base_url}style/img/dot.png' > ";
+		}
+		$marq.="</div>";
+	}
+	
+	
+	
+	eval("\$header = \" " . $intro->style['header'] . "\";");
+	echo stripslashes($header);
+}
+
+function pFooter(){
+	global $intro,$home,$start_time,$starttime;
+	$chat=$zopim ='';
+	$lang = $intro->maa->lang;
+	
+	$year=date('Y');
+	
+	$sql = $intro->db->query("SELECT * FROM ".PREFIX."_pages  where id=10 ");
+	$row =  $intro->db->fetch_assoc($sql);
+		
+	$bodytext = stripslashes($row['bodytext_'.$lang]);
+	//$bodytext = strip_tags($bodytext);
+
+		
+	$chat=$intro->style['chat'];
+	
+	eval("\$footer = \" " . $intro->style['footer'] . "\";");
+	echo stripslashes($footer);
+
+	if($intro->option['debug'] == 1)
+	{		
+		if ($intro->auth->auth_admin() == true) 
+		{
+			$end = microtime(true);
+			$page_speed = $end - $start_time;
+			echo ('<div style="text-align:center">' . $page_speed . '</div>' );
+			$intro->db->show_debug_console();
+		}			
+	}
+
+}
+
+function TableOpen($titlepage="",$editnews="") {
+   global $intro;
+   
+	eval("\$output_data = \" " . $intro->style['content_box_open'] . "\";");
+	echo stripslashes($output_data);
+}
+function TableClose() {
+	global $intro;
+	
+	$lang=$intro->maa->lang;
+    $news=$albume=$images="";
+
+	eval("\$output_data = \" " . $intro->style['content_box_close'] . "\";");
+	echo stripslashes($output_data);
+    
+}
+
+/*****************************
+custom header
+******************************/
+function custom_header($title) {
+    global  $intro;
+	
+	global $home,$intro,$adv1,$CONF;
+	$home = $intro->home;
+	$lang=$intro->maa->lang;
+	
+if($lang=='ar'){
+		$stylecss = "<link rel=\"stylesheet\" href=\"{$intro->base_url}style/css/rtl.css\">";
+	}else{
+		$stylecss = "";
+	}
+
+	?>
+	<!DOCTYPE >
+	<html  html dir=" <?=$intro->lang['dir']?> ">
+	<head>
+		<meta charset="utf-8" />
+		<title><?=$intro->option['site_name']?> <?=$title?></title>
+		<link rel="stylesheet" href="<?=$intro->base_url?>style/css/style.css" media="screen" />
+		<?=$stylecss?>
+		</head>
+	<body>
+	<?php	
+	
+}
+
+
+
+
+
+
+function BlocksTheme($title, $content, $showtitle,$image, $file_theme) {
+    global  $theme, $CONF, $style, $intro;
+
+    $thefile = "\$r_file=\" " . $intro->style[$file_theme] . " \";";
+    eval($thefile);
+    print stripslashes($r_file);
+}
+
+//دالة المجموعات
+function render_blocks($side,$blockfile,$title,$content,$bid,$topic,$topic_no,$move,$image,$imgw,$imgh,$file_theme,$showtitle){
+         global $db, $prefix, $cur_issue, $intro;
+
+	
+    if ($topic == 0) {
+
+		if ($blockfile == "") {
+		
+		    if ($side == "c") {
+				echo $content;
+		    } elseif ($side == "d") {
+                                 echo $content;
+		    } else {
+				BlocksTheme($title, $content, $showtitle, $image, $file_theme);
+		    }
+		} else {
+		
+		
+		
+		    if ($side == "c") {
+				blockfileinc($title, $blockfile, $showtitle, $image,$file_theme);
+				
+				
+		    } elseif ($side == "d") {
+				blockfileinc($title, $blockfile, $showtitle, $image,$file_theme);  //,1
+		    } else {
+		
+				blockfileinc($title, $blockfile, $showtitle, $image,$file_theme);
+		    }
+		}
+	} else {
+                 $result22 = $intro->db->query("SELECT * from ".PREFIX."_news_cat where father='$topic' order by catid");
+                   while($myrow22 = $intro->db->fetch_assoc($result22)){
+                    $othertopics .=" or catid='$myrow22[catid]'   ";
+                 }
+
+                 $result = $intro->db->query("SELECT  * FROM ".PREFIX."_news where catid='$catid' $othertopics ORDER BY sid DESC limit $topic_no");
+                 while ($row = $intro->db->fetch_assoc($result)) {
+	           $s_sid = intval($row['sid']);
+	           $s_title = stripslashes($row['title']);
+	           $time = $row['time'];
+	           $hometext = stripslashes($row['hometext']);
+                   $image1 = $row['image1'];
+
+                      if ($image1 != ""){
+
+                      $imagep = "<center><img alt='شركة انتروتك' src='images/archive/$image1' width='$imgw' height='$imgh'></center>";
+
+                      }else{
+                      $imagep = "";
+                      }
+                      $s_title = "<a href=news.php?maa=View&amp;id=$s_sid>$s_title</a><br><font class=tiny>$time</font>";
+
+
+
+                      $block_stuff .= "<table border='0' cellpadding='0' cellspacing='0' width='100%' id='table1'>
+					<tr>
+						<td align=center>$imagep</td>
+                                         </tr>
+                                         <tr>
+						<td align=center>$s_title</td>
+					</tr>
+				</table><hr size=1 color=#c0c0c0 width=90%>";
+
+
+                    }
+
+
+                 if ($move == 1){
+                          $content = "<marquee direction=\"up\" width=\"99%\" scrollamount=\"2\"  onmouseover=this.stop() onmouseout=this.start() height=\"150\">";
+                          $content .= "$block_stuff";
+                          $content .= "</marquee>";
+                 }else{
+                     $content = $block_stuff;
+                 }
+                if ($side == "c" OR $side == "d") {
+                   BlocksTheme($title, $content, $showtitle, $image,$file_theme,1);
+		} else {
+                   BlocksTheme($title, $content, $showtitle, $image,$file_theme);
+		}
+    }
+}
+function blockfileinc($title, $blockfile, $showtitle,$image, $file_theme, $side=0) {
+    $blockfiletitle = $title;
+	//echo $blockfile;
+    $file = @file("blocks/".$blockfile."");
+
+    if (!$file) {
+	$content = "الملف ($blockfile) غير موجود";
+    } else {
+
+        include("blocks/".$blockfile."");
+		//echo "$content";
+    }
+    if ($content == "") {
+    //يوجد مشكلة 2
+	$content = "لايوجد محتوى";
+    }
+    if ($side == 1) {
+	echo $content;
+    } elseif ($side == 2) {
+       echo $content;
+    } else {
+	BlocksTheme($blockfiletitle, $content, $showtitle, $image,$file_theme);
+	
+	
+    }
+}
+function blocks($side,$home="",$page="") {
+    global $storynum, $prefix, $intro;
+	$qry='';
+    if (strtolower($side[0]) == "l") {
+		$pos = "l";
+    } elseif (strtolower($side[0]) == "r") {
+		$pos = "r";
+    }  elseif (strtolower($side[0]) == "c") {
+		$pos = "c";
+    } elseif  (strtolower($side[0]) == "d") {
+		$pos = "d";
+    }
+    $side = $pos;
+	if($home!="") $qry.="and inhome=1";
+	if($page!="") $qry.="and inpage=1";
+	
+	
+    $sql = "SELECT * FROM ".PREFIX."_blocks WHERE bposition='$pos' AND active='1' $qry ORDER BY weight ASC";
+    $result = $intro->db->query($sql);
+    while($row = $intro->db->fetch_assoc($result)) {
+	$bid = intval($row['bid']);
+	$title = stripslashes($row['title']);
+	$showtitle = $row['showtitle'];
+        $topic = $row['topic'];
+        $topic_no = $row['topic_no'];
+        $move = $row['move'];
+        $image = $row['image'];
+        $imgw = $row['imgw'];
+        $imgh = $row['imgh'];
+        $file_theme = stripslashes($row['file_theme']);
+		$content = stripslashes($row['content']);
+		$url = stripslashes($row['url']);
+		$blockfile = $row['blockfile'];
+		$view = intval($row['view']);
+		$expire = intval($row['expire']);
+		$action = $row['action'];
+        $action = substr("$action", 0,1);
+	    $now = time();
+	   
+		if ($expire != 0 AND $expire <= $now) {
+		    if ($action == "d") {
+		            $intro->db->query("UPDATE ".PREFIX."_blocks SET active='0', expire='0' WHERE bid='$bid'");
+		            return;
+		    } elseif ($action == "r") {
+		            $intro->db->query("DELETE FROM ".PREFIX."_blocks WHERE bid='$bid'");
+		            return;
+		    }
+		}       
+		if ($view == 0) {
+		
+			render_blocks($side,$blockfile,$title,$content,$bid,$topic,$topic_no,$move,$image,$imgw,$imgh,$file_theme,$showtitle);            
+		}	    
+    }
+	
+	
+}
+
+?>

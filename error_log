@@ -1,0 +1,53 @@
+[05-Apr-2026 11:49:07 UTC] PHP Parse error:  syntax error, unexpected 'version' (T_STRING) in /home/buyform1/public_html/sitemap.php on line 1
+[05-Apr-2026 11:49:18 UTC] PHP Parse error:  syntax error, unexpected 'version' (T_STRING) in /home/buyform1/public_html/sitemap.php on line 1
+[05-Apr-2026 11:52:56 UTC] PHP Parse error:  syntax error, unexpected 'version' (T_STRING) in /home/buyform1/public_html/sitemap.php on line 1
+[06-Apr-2026 11:45:28 UTC] PHP Fatal error:  strict_types declaration must be the very first statement in the script in /home/buyform1/public_html/sitemap.php on line 5
+[06-Apr-2026 11:45:53 UTC] PHP Fatal error:  strict_types declaration must be the very first statement in the script in /home/buyform1/public_html/sitemap.php on line 5
+[14-Apr-2026 17:05:36 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(33): require_once('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(248): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23
+[14-Apr-2026 17:14:26 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(42): include('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(213): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23
+[14-Apr-2026 17:15:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(42): include('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(213): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23
+[14-Apr-2026 17:15:09 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(42): include('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(213): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23
+[14-Apr-2026 17:15:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(42): include('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(213): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23
+[14-Apr-2026 17:16:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/buyform1/public_html/includes/class_maa.php:23
+Stack trace:
+#0 /home/buyform1/public_html/intro/intro.php(86): maa->obtain_config()
+#1 /home/buyform1/public_html/abc.php(104): intro->main()
+#2 /home/buyform1/public_html/sitemap.php(42): include('/home/buyform1/...')
+#3 /home/buyform1/public_html/sitemap.php(213): bootstrapApp()
+#4 {main}
+  thrown in /home/buyform1/public_html/includes/class_maa.php on line 23

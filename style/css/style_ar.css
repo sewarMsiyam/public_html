@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Droid Arabic Kufi';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/DroidKufi-Regular.eot);
+  src: url(../fonts/DroidKufi-Regular.eot?#iefix) format('embedded-opentype'),
+       url(../fonts/DroidKufi-Regular.woff2) format('woff2'),
+       url(../fonts/DroidKufi-Regular.woff) format('woff'),
+       url(../fonts/DroidKufi-Regular.ttf) format('truetype');
+}
+
+body{
+	padding:0px;
+	margin:0px;
+	 font-family: 'Droid Arabic Kufi';
+	 font-size:0.9rem !important;
+	 line-height:25px;	
+	 direction:rtl;
+	 text-align:right;
+}
+.nav-link {
+    font-size: 0.9rem;
+}
+.dropdown-toggle::after {
+   margin-right: 0.355em;
+    
+}
+
+.mobilecat .dropdown-item {
+    border-bottom: 1px #efefef solid;
+    padding: 10px 15px;
+    text-align: right;
+}
+
+@media (max-width: 991.98px){
+    .navbar-dark .navbar-nav .nav-link {
+        padding: 7px 5px;
+      border-bottom: 1px solid rgba(0,0,0,0.5);
+        
+    }
+}
