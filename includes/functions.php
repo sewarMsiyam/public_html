@@ -635,4 +635,31 @@ function pagination3uri($base_url, $num_items, $per_page, $start_item, $add_prev
 	return $page_string;
 }
 
+/**
+ * ينادي رابط الـ revalidate في مشروع Next.js على Vercel
+ * عشان يعمل رفرش للكاش (ISR) بعد أي تعديل على المحتوى.
+ *
+ * @param string $tag  اسم التاق اللي بدنا نعمله revalidate (مثال: 'videos')
+ * @return void
+ */
+function revalidateNext($tag) {
+	$secret = defined('REVALIDATE_SECRET') ? REVALIDATE_SECRET : 'Bf2026$xR9kLm4nQ8vP'; // نفس السر اللي على Vercel
+	$base   = defined('NEXT_REVALIDATE_URL') ? NEXT_REVALIDATE_URL : 'https://buyformulas.vercel.app/api/revalidate';
+
+	$url = $base . '?secret=' . urlencode($secret) . '&tag=' . urlencode($tag);
+
+	if (!function_exists('curl_init')) {
+		return; // ما في cURL، نطلع بدون ما نوقف الحفظ
+	}
+
+	// نداء الرابط بأسرع وقت بدون ما نبطّئ الحفظ
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	@curl_exec($ch);
+	curl_close($ch);
+}
+
 ?>

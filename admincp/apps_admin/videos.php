@@ -360,10 +360,11 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 		$data["status"] = $status;
 		
 		$intro->db->insert(PREFIX."_videos",$data);
+		revalidateNext('videos');
 		$intro->redirect($this->appname);
 	}
 
-	
+
 	function do_Edit(){
 		global $intro,$error,$array;
 		
@@ -411,9 +412,10 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 		$id = intval( $intro->input->post('id') );
 
 		$intro->db->update(PREFIX."_videos",$data,"vid=$id");
+		revalidateNext('videos');
 		$intro->redirect($this->appname);
 	}
-	
+
 	function Del(){
 		global $intro,$sess_admin,$array;
 		
@@ -423,11 +425,12 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_videos WHERE vid=$id ");
 
+		revalidateNext('videos');
 		$intro->redirect($this->appname);
 	}
-	
-	
-	
+
+
+
 	############################################################################
 	# CAT
 	############################################################################
@@ -594,6 +597,7 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 		$data["catname_en"] = $intro->input->post('catname_en');
 		$data["catimage"] = $intro->input->post('catimage');
 		$intro->db->insert(PREFIX."_videos_cat",$data);
+		revalidateNext('videos');
 		$intro->redirect($this->appname , "Cat");
 	}
 
@@ -608,6 +612,7 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 		$data["catimage"] = $intro->input->post('catimage');
 		$catid = intval( $intro->input->post('catid') );
 		$intro->db->update(PREFIX."_videos_cat",$data,"catid=$catid");
+		revalidateNext('videos');
 		$intro->redirect($this->appname , "Cat");
 	}
 	
@@ -620,6 +625,7 @@ class Videos_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_videos_cat WHERE catid=$catid ");
 
+		revalidateNext('videos');
 		$intro->redirect($this->appname , "Cat");
 	}
 		
