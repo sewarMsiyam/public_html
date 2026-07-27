@@ -239,6 +239,7 @@ class Faqs_AppAdmin extends Intro_AppsAdmin{
 		
 		//if($intro->input->post('IF') == 1) die("<script>parent.location.reload(true);parent.$.fancybox.close();</script>");
 		
+		revalidateNext('faqs');
 		$intro->redirect($this->appname);
 	}
 
@@ -260,6 +261,7 @@ class Faqs_AppAdmin extends Intro_AppsAdmin{
 		
 		//if($intro->input->post('IF') == 1) die("<script>parent.$.fancybox.close();</script>");
 		
+		revalidateNext('faqs');
 		$intro->redirect($this->appname);
 	}
 	
@@ -272,6 +274,7 @@ class Faqs_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_faqs WHERE id=$id ");
 
+		revalidateNext('faqs');
 		$intro->redirect($this->appname);
 	}
 	
@@ -282,6 +285,7 @@ class Faqs_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_faqs SET status='1' WHERE id='$id' ");
 
+		revalidateNext('faqs');
 		$intro->redirect($this->appname);
 
 	}

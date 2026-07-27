@@ -259,6 +259,7 @@ class Slides_AppAdmin extends Intro_AppsAdmin{
 				 
 		$intro->db->insert(PREFIX."_slides",$data);
 		
+		revalidateNext('slides');
 		$intro->redirect($this->appname);
 	}
 
@@ -280,6 +281,7 @@ class Slides_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_slides",$data,"sid=$sid");
 
+		revalidateNext('slides');
 		$intro->redirect($this->appname);
 	}
 	
@@ -292,6 +294,7 @@ class Slides_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_slides WHERE sid=$sid ");
 
+		revalidateNext('slides');
 		$intro->redirect($this->appname);
 	}
 	
@@ -302,6 +305,7 @@ class Slides_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_slides SET status='1' WHERE sid='$sid' ");
 
+		revalidateNext('slides');
 		$intro->redirect($this->appname);
 
 	}

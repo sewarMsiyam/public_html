@@ -245,6 +245,7 @@ class Pages_AppAdmin extends Intro_AppsAdmin{
 		$data["bodytext_ar"] = addslashes($_POST['bodytext_ar']);
 		$data["bodytext_en"] = addslashes($_POST['bodytext_en']);		 
 		$intro->db->insert(PREFIX."_pages",$data);
+		revalidateNext('pages');
 		$intro->redirect($this->appname);
 	}
 
@@ -267,6 +268,7 @@ class Pages_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_pages",$data,"id=$id");
 
+		revalidateNext('pages');
 		$intro->redirect($this->appname);
 	}
 	
@@ -277,6 +279,7 @@ class Pages_AppAdmin extends Intro_AppsAdmin{
 		policy($sess_admin['adminid'],$this->appname.".php" , "del");
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_pages WHERE id=$id ");
 
+		revalidateNext('pages');
 		$intro->redirect($this->appname);
 	}
 	

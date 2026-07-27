@@ -271,6 +271,7 @@ class Posts_AppAdmin extends Intro_AppsAdmin{
 				 
 		$intro->db->insert(PREFIX."_posts",$data);
 		$id = $intro->db->insert_id();
+		revalidateNext('blog');
 		$intro->redirect($this->appname);
 	}
 
@@ -307,6 +308,7 @@ class Posts_AppAdmin extends Intro_AppsAdmin{
 		
 		//$intro->logs($this->appname,"{$intro->lang["posts_edit"]} : $id",$_POST);
 		
+		revalidateNext('blog');
 		$intro->redirect($this->appname);
 	}
 	
@@ -324,6 +326,7 @@ class Posts_AppAdmin extends Intro_AppsAdmin{
 		
 		//$intro->logs($this->appname,"delete : $id",$row);
 		
+		revalidateNext('blog');
 		$intro->redirect($this->appname);
 	}
 	
@@ -334,6 +337,7 @@ class Posts_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_posts SET status='1' WHERE id='$id' ");
 
+		revalidateNext('blog');
 		$intro->redirect($this->appname);
 
 	}

@@ -207,6 +207,7 @@ class Discount_AppAdmin extends Intro_AppsAdmin{
 		$data["dateadded"] = $intro->input->post('dateadded') ;
 		 
 		$intro->db->insert(PREFIX."_discounts",$data);
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 
@@ -226,6 +227,7 @@ class Discount_AppAdmin extends Intro_AppsAdmin{
 		
 		$intro->db->update(PREFIX."_discounts",$data,"id=$id");
 		
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 	
@@ -238,6 +240,7 @@ class Discount_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_discounts WHERE id=$id ");
 
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 	

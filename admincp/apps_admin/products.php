@@ -591,6 +591,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 		$data["extra_titles_en"] = $extra_titles_en;
 		$data["extra_titles_ar"] = $extra_titles_ar;		 
 		$intro->db->insert(PREFIX."_products",$data);
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 
@@ -640,6 +641,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 		
 		//if($intro->input->post('IF') == 1) die("<script>parent.$.fancybox.close();</script>");
 		
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 	
@@ -652,6 +654,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_products WHERE id=$id ");
 
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 	
@@ -664,6 +667,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("update ".PREFIX."_products set views='0' ");
 
+		revalidateNext('products');
 		$intro->redirect($this->appname);
 	}
 	
@@ -854,6 +858,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 		$data["catname_en"] = $intro->input->post('catname_en');
 		$data["catimage"] = $intro->input->post('catimage');
 		$intro->db->insert(PREFIX."_products_cat",$data);
+		revalidateNext('products');
 		$intro->redirect($this->appname , "Cat");
 	}
 
@@ -868,6 +873,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 		$data["catimage"] = $intro->input->post('catimage');
 		$catid = intval( $intro->input->post('catid') );
 		$intro->db->update(PREFIX."_products_cat",$data,"catid=$catid");
+		revalidateNext('products');
 		$intro->redirect($this->appname , "Cat");
 	}
 	
@@ -880,6 +886,7 @@ class Products_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_products_cat WHERE catid=$catid ");
 
+		revalidateNext('products');
 		$intro->redirect($this->appname , "Cat");
 	}
 		

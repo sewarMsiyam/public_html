@@ -175,6 +175,7 @@ function multiDel(){
 			$sql = $intro->db->query("DELETE FROM ".PREFIX."_contactus WHERE cid='{$selected_fld[$i]}' ");
 		}
 
+		revalidateNext('contactus');
 		$intro->redirect($this->appname);
 	}
 
@@ -295,6 +296,7 @@ function multiDel(){
 				 
 		$intro->db->insert(PREFIX."_contactus",$data);
 		
+		revalidateNext('contactus');
 		$intro->redirect($this->appname);
 	}
 
@@ -316,6 +318,7 @@ function multiDel(){
 
 		$intro->db->update(PREFIX."_contactus",$data,"cid=$cid");
 
+		revalidateNext('contactus');
 		$intro->redirect($this->appname);
 	}
 	
@@ -328,6 +331,7 @@ function multiDel(){
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_contactus WHERE cid=$cid ");
 
+		revalidateNext('contactus');
 		$intro->redirect($this->appname);
 	}
 	
@@ -338,6 +342,7 @@ function multiDel(){
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_contactus SET status='1' WHERE cid='$cid' ");
 
+		revalidateNext('contactus');
 		$intro->redirect($this->appname);
 
 	}

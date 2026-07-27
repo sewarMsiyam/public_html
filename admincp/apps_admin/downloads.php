@@ -285,6 +285,7 @@ class Downloads_AppAdmin extends Intro_AppsAdmin{
 				 
 		$intro->db->insert(PREFIX."_downloads",$data);
 		
+		revalidateNext('downloads');
 		$intro->redirect($this->appname);
 	}
 
@@ -319,6 +320,7 @@ class Downloads_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_downloads",$data,"id=$id");
 
+		revalidateNext('downloads');
 		$intro->redirect($this->appname);
 	}
 	
@@ -331,6 +333,7 @@ class Downloads_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_downloads WHERE id=$id ");
 
+		revalidateNext('downloads');
 		$intro->redirect($this->appname);
 	}
 	
@@ -341,6 +344,7 @@ class Downloads_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_downloads SET status='1' WHERE id='$id' ");
 
+		revalidateNext('downloads');
 		$intro->redirect($this->appname);
 
 	}

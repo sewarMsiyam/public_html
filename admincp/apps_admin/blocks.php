@@ -454,6 +454,7 @@ class Blocks_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->insert(PREFIX."_blocks",$data);
 
+		revalidateNext('blocks');
 		$intro->redirect($this->appname);
 	}
 
@@ -496,6 +497,7 @@ class Blocks_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_blocks",$data,"bid='$bid'");
 			
+		revalidateNext('blocks');
 		$intro->redirect($this->appname);	
 	}
 
@@ -505,6 +507,7 @@ class Blocks_AppAdmin extends Intro_AppsAdmin{
 
 		 $sql = $intro->db->query("DELETE FROM ".PREFIX."_blocks WHERE bid='$bid' ");
 
+		 revalidateNext('blocks');
 		 $intro->redirect($this->appname);
 	}
 
@@ -514,6 +517,7 @@ class Blocks_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_blocks SET active='1' WHERE bid='$bid' ");
 
+		revalidateNext('blocks');
 		$intro->redirect($this->appname);
 	}
 

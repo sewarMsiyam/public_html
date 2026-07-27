@@ -419,6 +419,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 			//$sql = $intro->db->query("INSERT INTO ".PREFIX."_adv (type,catid,title,advfile,html,url,status,hits,shows,date_start,date_end,width,height,target,after_expire) VALUES ('$type','$catid','$title','$advfile','$html','$url','$status','$hits','$shows','$date_start','$date_end','$width','$height','$target','$after_expire') ");
 			$intro->db->insert(PREFIX."_adv",$data);
 			
+			revalidateNext('adv');
 			$intro->redirect($this->appname);
 	}
 
@@ -454,6 +455,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 		//$sql = $intro->db->query("UPDATE ".PREFIX."_adv SET type='$type',catid='$catid',title='$title',advfile='$advfile',html='$html',url='$url',status='$status',hits='$hits',shows='$shows',date_start='$date_start',date_end='$date_end',width='$width',height='$height',target='$target',after_expire='$after_expire' WHERE advid='$advid' ");
 		$intro->db->update(PREFIX."_adv",$data,"advid='$advid'");
 
+		revalidateNext('adv');
 		$intro->redirect($this->appname);
 	}
 	
@@ -472,6 +474,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 		
 		@unlink("../../".$advfile);
 		
+		revalidateNext('adv');
 		$intro->redirect($this->appname);
 	}
 	
@@ -568,6 +571,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 		 for ($i=0; $i<count($all_id); $i++){
 		 $sql =  $intro->db->query("UPDATE  ".PREFIX."_adv_cat SET  w='$all_w[$i]' where catid='$all_id[$i]'");
 		 }
+		 revalidateNext('adv');
 		 $intro->redirect($this->appname,"Cat");
 	}
 	
@@ -698,6 +702,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->insert(PREFIX."_adv_cat", $data);
 
+		revalidateNext('adv');
 		$intro->redirect($this->appname,"Cat");
 	}
 	
@@ -729,6 +734,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_adv_cat", $data, "catid='$catid'");
 
+		revalidateNext('adv');
 		$intro->redirect($this->appname,"Cat");
 	}
 
@@ -738,6 +744,7 @@ class Adv_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_adv_cat WHERE catid='$catid' ");
 
+		revalidateNext('adv');
 		$intro->redirect($this->appname,"Cat");
 
 	}

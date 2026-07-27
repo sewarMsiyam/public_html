@@ -269,6 +269,7 @@ class Marquee_AppAdmin extends Intro_AppsAdmin{
 				 
 		$intro->db->insert(PREFIX."_marquee",$data);
 		
+		revalidateNext('marquee');
 		$intro->redirect($this->appname);
 	}
 
@@ -292,6 +293,7 @@ class Marquee_AppAdmin extends Intro_AppsAdmin{
 
 		$intro->db->update(PREFIX."_marquee",$data,"mid=$mid");
 
+		revalidateNext('marquee');
 		$intro->redirect($this->appname);
 	}
 	
@@ -304,6 +306,7 @@ class Marquee_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("DELETE FROM ".PREFIX."_marquee WHERE mid=$mid ");
 
+		revalidateNext('marquee');
 		$intro->redirect($this->appname);
 	}
 	
@@ -314,6 +317,7 @@ class Marquee_AppAdmin extends Intro_AppsAdmin{
 
 		$sql = $intro->db->query("UPDATE ".PREFIX."_marquee SET status='1' WHERE mid='$mid' ");
 
+		revalidateNext('marquee');
 		$intro->redirect($this->appname);
 
 	}
