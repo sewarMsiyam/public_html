@@ -662,4 +662,39 @@ function revalidateNext($tag) {
 	curl_close($ch);
 }
 
+/**
+ * يحوّل نص (اسم المنتج الإنجليزي) إلى slug بصيغة kebab-case
+ * مثال: "How to make double apple flavor essence" => "how-to-make-double-apple-flavor-essence"
+ *
+ * @param string $text
+ * @return string  الـ slug (ممكن يرجع فاضي إذا ما في أحرف إنجليزية/أرقام)
+ */
+function product_slug($text) {
+	$text = trim((string)$text);
+	if ($text === '') return '';
+
+	$text = strtolower($text);
+	// أي إشي مش حرف إنجليزي أو رقم بنحوّله لشرطة
+	$text = preg_replace('/[^a-z0-9]+/', '-', $text);
+	// نشيل الشرطات الزايدة من الطرفين
+	$text = trim($text, '-');
+
+	return $text;
+}
+
+/**
+ * يبني رابط صفحة تفاصيل المنتج على موقع Next بالاعتماد على الـ slug.
+ *
+ * @param string $name_en   الاسم الإنجليزي للمنتج (منه بيتولّد الـ slug)
+ * @param string $fallback  رابط بديل يُرجَع إذا ما في slug (مثلاً رابط PHP القديم)
+ * @return string
+ */
+function next_product_url($name_en, $fallback = '') {
+	$slug = product_slug($name_en);
+	if ($slug === '') return $fallback;
+
+	$base = defined('NEXT_SITE_URL') ? NEXT_SITE_URL : 'https://buyformulas.vercel.app';
+	return rtrim($base, '/') . '/products/' . $slug;
+}
+
 ?>

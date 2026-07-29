@@ -56,7 +56,7 @@ class Home_App extends Intro_Apps
 			$pid=$row2['id'];
 			$name=$row2['name'];
 			$img_ar=$row2['img_ar'];
-			$url2=$intro->uri_links('products','View',$pid,$name);
+			$url2=next_product_url($row2['name_en'], $intro->uri_links('products','View',$pid,$name));
 			
 			if($lang == "ar"){
 			$img=$intro->base_url."uploads/news/$img_ar";
@@ -99,7 +99,7 @@ class Home_App extends Intro_Apps
 			$img_ar = $row2['img_ar'];
 			
 			$net_price = $row2['net_price'];
-			$url2=$intro->uri_links('products','View',$pid,$name);
+			$url2=next_product_url($row2['name_en'], $intro->uri_links('products','View',$pid,$name));
 			$urlcat=$intro->uri_links('products','Cat',$catids,$array['newscat'][$catids]);
 			//$img = "{$intro->base_url}img.php?news=1&img=$photo&w=243&h=243";
 			if($lang == "ar"){$img=$intro->base_url."uploads/news/$img_ar";}else{$img=$intro->base_url."uploads/news/$photo";}
@@ -200,7 +200,7 @@ class Home_App extends Intro_Apps
 			
 			
 			
-			$url2=$intro->uri_links('products','View',$pid,$name);
+			$url2=next_product_url($row2['name_en'], $intro->uri_links('products','View',$pid,$name));
 			$urlcat=$intro->uri_links('products','Cat',$catids,$array['newscat'][$catids]);
 			$rating_stars = $this->getProductRatingStars($pid);
 			$featrued.=" <div class=\" col-lg-3 col-md-4 col-sm-6 \">
